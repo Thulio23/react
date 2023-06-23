@@ -1,13 +1,15 @@
 import {useState} from "react";
 import{} from "./components/list"
+import { GlobalStyle } from "./styles/globalstyle";
 
 function App(){
   const [projects, setProjects] = useState([])
   function handleAddProject() {
     setProjects([...projects,`Novo projeto ${Date.now()}`])
   }
-    return (
+  return (
     <>
+    <GlobalStyle />
       <header>🔴⚫Flamengo🔴⚫</header>
       <main>
         <ul>
