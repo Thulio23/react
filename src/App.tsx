@@ -1,23 +1,34 @@
-import {useState} from "react";
-import{} from "./components/list"
-import { GlobalStyle } from "./styles/globalstyle";
+import { ComponentFooter, ComponentHeader } from "./components";
+import { PageHome, PageList } from "./pages";
+import { GlobalStyle, Main } from "./styles/GlobalStyle";
+import { Dispatch, SetStateAction, useState } from "react";
 
-function App(){
-  const [projects, setProjects] = useState([])
-  function handleAddProject() {
-    setProjects([...projects,`Novo projeto ${Date.now()}`])
+export interface IPage {
+  setPage: Dispatch<SetStateAction<number>>
+}
+export function App() {
+  const [page, setPage] = useState(1)
+  let component
+  switch (page) {
+    case 1:
+      component = <PageHome />
+      break;
+    case 2:
+      component = <PageList />
+      break;
+    default:
+      component = <PageHome />
+      break;
   }
   return (
     <>
-    <GlobalStyle />
-      <header>🔴⚫Flamengo🔴⚫</header>
-      <main>
-        <ul>
-        {projects.map(item => <li key={item}>{item}</li>)}
-      </ul>
-    </main>
+      <GlobalStyle />
+      <ComponentHeader setPage={setPage} />
+      <Main>
+        {component}
+      </Main>
+      <ComponentFooter />
     </>
-  );
+  )
 }
 
-export default App
